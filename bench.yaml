@@ -1,0 +1,21 @@
+apiVersion: apps/v
+kind: Deployment
+metadata:
+  name: bench
+spec:
+  replicas: 1
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: xxxxxx
+      volumes:
+        - name: task-pv-storage
+          hostPath:
+            path: /mnt
+            type: Directory
+      containers:
+      - name: bench
+        image: ubuntu
+        volumeMounts:
+         - name: task-pv-storage
+           mountPath: /mnt/bench
